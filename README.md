@@ -33,20 +33,26 @@ You may also be navigated the wiki page in browser by Workyras app:
 This project makes use of the following libraries:
 
 - [Apache Commons Lang](https://commons.apache.org/proper/commons-lang)
-    
-    > [NOTICE](app/src/main/assets/about/licenses/notices/ApacheCommonsLang.txt)
+
+  > [NOTICE](app/src/main/assets/about/licenses/notices/ApacheCommonsLang.txt)
 
 - [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
-  
-    > [NOTICE](app/src/main/assets/about/licenses/notices/ApacheCommonsLang.txt)
+
+  > [NOTICE](app/src/main/assets/about/licenses/notices/ApacheCommonsLang.txt)
 
 - [OpenCSV](https://opencsv.sourceforge.net/)
 
-    > [NOTICE](app/src/main/assets/about/licenses/notices/OpenCSV.txt)
+  > [NOTICE](app/src/main/assets/about/licenses/notices/OpenCSV.txt)
 
 License copies:
 
 > - [Apache 2.0](app/src/main/assets/about/licenses/copies/Apache-2.0.txt)
+
+## Donate
+
+You may donate to author via:
+
+- [Bitcoin Address](bitcoin:bc1qhf4wv9l6ma5jc0lmr6mjmpfxq4gw485mwqthzn)
 
 ## License
 
