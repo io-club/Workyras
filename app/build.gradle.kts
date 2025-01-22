@@ -29,19 +29,14 @@ android {
 
     defaultConfig {
         applicationId = "fyi.ioclub.workyras"
-        minSdk = 34
-        //noinspection OldTargetApi
+        minSdk = 32
+        // noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        multiDexEnabled = true
-//        ndk {
-//            abiFilters.add("x64")
-//            abiFilters.add("x86")
-//        }
     }
 
     buildTypes {
