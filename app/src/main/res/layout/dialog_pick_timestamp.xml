@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 IO Club
+  ~
+  ~ This file is part of Workyras.
+  ~
+  ~ Workyras is free software: you can redistribute it and/or modify
+  ~ it under the terms of the Lesser GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Workyras is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ Lesser GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the Lesser GNU General Public License
+  ~ along with Workyras.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/datetime_picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_timestamp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/button_pick_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_pick_date_description"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            app:layout_constraintBottom_toTopOf="@id/button_pick_time"
+            app:layout_constraintEnd_toStartOf="@id/edit_text_datetime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/button_pick_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_pick_time_description"
+            android:src="@android:drawable/ic_menu_recent_history"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edit_text_datetime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_pick_date"
+            tools:ignore="ImageContrastCheck" />
+
+        <!-- Dummy view helps determine where window pops up.. -->
+        <View
+            android:id="@+id/view_dummy_popup_helper"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/button_pick_date"
+            app:layout_constraintStart_toEndOf="@id/button_pick_date"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_text_datetime"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/datetime_format"
+            android:importantForAutofill="no"
+            android:inputType="datetime"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/radio_group_timestamp_picker_mode"
+            app:layout_constraintStart_toEndOf="@id/button_pick_date"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="488dp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_timestamp_picker_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edit_text_datetime"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/radio_button_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="?attr/colorPrimary"
+                android:minHeight="48dp"
+                android:text="@string/radio_button_relative_text"
+                android:textAppearance="@style/TimestampPickerMode"
+                android:textColor="?attr/colorPrimary" />
+
+            <RadioButton
+                android:id="@+id/radio_button_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="?attr/colorSecondary"
+                android:minHeight="48dp"
+                android:text="@string/radio_button_fixed_text"
+                android:textAppearance="@style/TimestampPickerMode"
+                android:textColor="?attr/colorSecondary"
+                tools:ignore="TextContrastCheck" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/text_view_timestamp_ref"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/ref_datetime_format"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_timestamp"
+        app:layout_constraintEnd_toStartOf="@id/edit_text_timestamp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edit_text_timestamp" />
+
+    <EditText
+        android:id="@+id/edit_text_timestamp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_text_timestamp_hint"
+        android:importantForAutofill="no"
+        android:inputType="numberSigned"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_reset_timestamp"
+        app:layout_constraintStart_toEndOf="@id/text_view_timestamp_ref"
+        app:layout_constraintTop_toBottomOf="@id/datetime_picker"
+        app:layout_constraintWidth_max="488dp" />
+
+    <ImageButton
+        android:id="@+id/button_reset_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@string/button_reset_timestamp_description"
+        android:src="@android:drawable/ic_input_delete"
+        app:layout_constraintBottom_toBottomOf="@id/edit_text_timestamp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/edit_text_timestamp"
+        app:layout_constraintTop_toTopOf="@id/edit_text_timestamp"
+        tools:ignore="ImageContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

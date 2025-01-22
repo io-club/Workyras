@@ -1,0 +1,111 @@
+<!--
+  ~ Copyright (C) 2025 IO Club
+  ~
+  ~ This file is part of Workyras.
+  ~
+  ~ Workyras is free software: you can redistribute it and/or modify
+  ~ it under the terms of the Lesser GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Workyras is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ Lesser GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the Lesser GNU General Public License
+  ~ along with Workyras.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+    <string name="app_name" translatable="false">IO WorkyRAS</string>
+
+    <!-- Common formats -->
+    <string name="asset_url_format">file:///android_asset/%s</string>
+    <string name="string_format" formatted="true">%s</string>
+    <string name="int_format" formatted="true">%d</string>
+
+    <!-- Common texts -->
+    <string name="dialog_positive_button_text">OK</string>
+    <string name="hint_empty">Blank took up all place here</string>
+    <string name="hint_gesture">MAY GESTURE HERE</string>
+
+    <!-- Work fragment -->
+    <string name="bottom_nav_work_title">Work</string>
+    <string name="text_view_work_pt_default" translatable="false">…</string>
+    <string name="text_view_work_tag_selector_hint_text">\@</string>
+    <string name="spinner_work_tag_description">Work Tag</string>
+    <string name="text_view_button_work_pick_timestamp_start_hint_text">From</string>
+    <string name="button_add_pt_text">"[  +  ]"</string>
+    <string name="button_add_pt_description">Add One Work Point</string>
+    <string name="pref_work_key_selected_work_tag_id_global" translatable="false">selected_work_tag_id_global</string>
+    <string name="pref_work_key_picked_timestamp_start" translatable="false">picked_timestamp_start</string>
+
+    <!-- Analysis fragment -->
+    <string name="bottom_nav_analysis_title">Analysis</string>
+    <string name="datetime_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="work_pt_chart_description" translatable="false">freq=Σ(1/exp(-d/σ))</string>
+    <string name="dialog_pick_timestamp_title_start">Pick the start timestamp</string>
+    <string name="dialog_pick_timestamp_title_end">Pick the end timestamp</string>
+    <string name="edit_text_timestamp_hint">in ms, defaults to CURRENT</string>
+    <string name="ref_datetime_format">Ref: %s</string>
+    <string name="button_reset_timestamp_description">Reset input</string>
+    <string name="radio_button_fixed_text">FIXD</string>
+    <string name="radio_button_relative_text">RLTV</string>
+    <string name="button_pick_date_description">Pick Date</string>
+    <string name="button_pick_time_description">Pick Time</string>
+    <string name="pref_analysis_key_picked_timestamp_start" translatable="false">picked_timestamp_start</string>
+    <string name="pref_analysis_key_picked_timestamp_end" translatable="false">picked_timestamp_end</string>
+    <string name="pref_analysis_key_is_to_show_timestamp_ref" translatable="false">is_to_show_timestamp_ref</string>
+    <string name="button_set_sigma_text" translatable="false">σ=</string>
+    <string name="edit_text_sigma_hint"><![CDATA[Enter sigma >= 1]]></string>
+    <string name="button_set_seek_bar_sigma_min_description">Set min sigma in seek bar</string>
+    <string name="button_set_seek_bar_sigma_max_description">Set max sigma in seek bar</string>
+    <string name="pref_analysis_key_sigma_min" translatable="false">sigma_min</string>
+    <string name="pref_analysis_key_sigma_max" translatable="false">sigma_max</string>
+    <string name="pref_analysis_key_sigma" translatable="false">sigma</string>
+
+    <!-- WorkTags fragment -->
+    <string name="fragment_work_tags_title">Tags</string>
+    <string name="button_add_work_tag_description">Add a new work tag</string>
+    <string name="edit_text_new_work_tag_id_hint">Enter new work tag ID as hex string</string>
+    <string name="edit_text_new_work_tag_name_hint">Enter new work tag name</string>
+    <string name="edit_text_new_work_tag_name_text_default" formatted="true">New World #%d</string>
+    <string name="dialog_add_work_tag_title">ADD new Work Tag</string>
+    <string name="dialog_add_wok_tag_positive_button">Add</string>
+
+    <string name="bottom_nav_more_title">More</string>
+
+    <string name="nav_header_image_description">Nav Drawer Home</string>
+
+    <!-- WorkTagBin fragment -->
+    <string name="nav_drawer_work_tag_bin_title">Tag Bin</string>
+    <string name="button_clear_work_tags_description">Clear All in Bin</string>
+    <string name="dialog_clear_work_tags_title">Sure to clear all Work Tags in Bin?</string>
+    <string name="dialog_clear_wok_tags_positive_button">Clear</string>
+
+    <!-- Save fragment -->
+    <string name="nav_drawer_save_title">Save</string>
+    <string name="html_save">"save/index.html"</string>
+    <string name="button_load_from_file_text">Load</string>
+    <string name="button_save_to_file_text">Save</string>
+
+    <!-- Setting fragment -->
+    <string name="nav_drawer_settings_title">Settings</string>
+    <string name="pref_work_tags_title">Work Tag Manager</string>
+    <string name="pref_gen_work_tag_id_size_title">Size of Auto-Generated ID</string>
+    <string name="pref_gen_work_tag_id_size_key" translatable="false">work_tags_gen_id_size</string>
+    <string name="pref_gen_work_tag_id_size_default" translatable="false">16</string>
+
+    <!-- About fragment -->
+    <string name="nav_drawer_about_title">About</string>
+    <string name="image_help_description">Help in Usage Icon</string>
+    <string name="button_open_help_in_usage_text">Help in App Usage</string>
+    <string name="dialog_open_help_in_usage_url_title">Sure to open web page for help in usage?</string>
+    <string name="help_url">https://github.com/io-club/Workyras/wiki</string>
+    <string name="text_view_donation_hint_text">You may donate for this work to the following address:</string>
+    <string name="image_to_donate_description">Donate</string>
+    <string name="button_copy_address_to_donate_to_description">Copy address to donate to</string>
+    <string name="html_about">"about/index.html"</string>
+
+</resources>

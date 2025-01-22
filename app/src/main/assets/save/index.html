@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title></title>
+    <meta name="color-scheme" content="light dark">
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div>
+
+    <div>
+        <h1>Instruction</h1>
+    </div>
+
+    <div>
+        <div>
+            <div>
+                <h2>Operations</h2>
+            </div>
+            <div
+            >
+
+                <h3>Load</h3>
+                <p>
+                    You select a directory in which
+                    <code>work_tags.csv</code> and
+                    <code>work_points.csv</code> must be.
+                </p>
+                <p>
+                    App will load data from the two files.
+                </p>
+            </div>
+            <div>
+                <h3>Save</h3>
+                <p>
+                    You select a directory which must be empty.
+                </p>
+                <p>
+                    App will save data to
+                    <code>work_tags.csv</code> and <code>work_points.csv</code>
+                    in the directory.
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <h2>Format details</h2>
+            </div>
+
+            <div>
+                <p>Following files are in CSV format, using comma as delimiter.</p>
+                <p>Empty fields will be interpreted as <code>null</code>.</p>
+            </div>
+
+            <div>
+                <div>
+                    <h3><code>work_tags.csv</code></h3>
+                    <table>
+                        <tr>
+                            <td>ID</td>
+                            <td>ID_GLOBAL</td>
+                            <td>NAME</td>
+                            <td>IS_RECYCLED</td>
+                            <td>NEXT_ID</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>00112233445566778899aabbccddeeff</td>
+                            <td>My Tag 1</td>
+                            <td>false</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>10112233445566778899aabbccddeeff</td>
+                            <td>My Tag 2</td>
+                            <td>false</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><i>(Long)</i></td>
+                            <td><i>(String)</i></td>
+                            <td><i>(String)</i></td>
+                            <td><i>(Boolean)</i></td>
+                            <td><i>(Long, Nullable)</i></td>
+                        </tr>
+                    </table>
+                    <ul>
+                        <li>ID_GLOBAL:
+                            Global work tag ID in hex string.
+                        </li>
+                        <li>NEXT_ID:
+                            Next tag's local ID.
+                            <code>null</code> if it's the last.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3><code>work_points.csv</code></h3>
+                    <table>
+                        <tr>
+                            <td>WORK_TAG_ID</td>
+                            <td>COMMENT</td>
+                            <td>PRODUCED_AT</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td></td>
+                            <td>1735689600000</td>
+                        </tr>
+                        <tr>
+                            <td><i>(Long)</i></td>
+                            <td><i>(String, Nullable)</i></td>
+                            <td><i>(Long)</i></td>
+                        </tr>
+                    </table>
+                    <ul>
+                        <li>COMMENT:
+                            <code>null</code> if no comment <strong>(typically)</strong>.
+                        </li>
+                        <li>PRODUCED_AT:
+                            Timestamp, milliseconds since epoch.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
