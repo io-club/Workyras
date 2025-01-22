@@ -19,7 +19,6 @@
 
 package fyi.ioclub.workyras.data.repository
 
-import android.content.SharedPreferences
 import fyi.ioclub.workyras.data.db.MainDatabase
 import fyi.ioclub.workyras.data.db.dao.WorkPointDao
 import fyi.ioclub.workyras.data.db.entities.WorkPointEntity
@@ -34,21 +33,10 @@ object WorkPointRepository {
 
     private val dao by lazy { MainDatabase.INSTANCE.workPointDao() }
 
-    private val sharedPref get() = _sharedPref
-    private lateinit var _sharedPref: SharedPreferences
-
-    val flowSelectedWorkTagIdGlobal get() = _flowSelectedWorkTagIdGlobal
-    private lateinit var _flowSelectedWorkTagIdGlobal: Flow<ByteArray?>
-
     private val _flowTaggedRowsChanged = MutableSharedFlow<Long>()
     private val flowTaggedRowsChanged: SharedFlow<Long> = _flowTaggedRowsChanged
 
     suspend fun getAllWorkPoints() = dao.getAllWorkPoints()
-
-    suspend fun flowCountWorkPointsByProducedAtRange(workTagIdGlobal: ByteArray) =
-        dao.flowCountWorkPointsByWorkTagIdAndProducedAtRange(
-            WorkTagRepository.getWorkTagByIdGlobal(workTagIdGlobal)!!.id
-        )
 
     suspend fun flowCountWorkPointsByProducedAtRange(
         workTagIdGlobal: ByteArray,

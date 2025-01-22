@@ -24,10 +24,6 @@ sealed interface DisplayWorkTag {
     val id: ByteArray
 
     val name: String
-
-    companion object {
-        const val ID_SIZE = 16
-    }
 }
 
 sealed interface WorkTag : DisplayWorkTag {

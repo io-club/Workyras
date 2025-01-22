@@ -70,9 +70,6 @@ class AnalysisViewModel : ViewModel(), ToLateInit<AnalysisViewModel.LateInitPara
         interface End : TimestampWrapper
     }
 
-    val isToShowTimestampRef: ValueLiveDataWrapper<Boolean> get() = _isToShowTimestampRef
-    private lateinit var _isToShowTimestampRef: TrinityDataWrapper<Boolean>
-
     private val workTagsViewModel get() = _workTagsViewModel
     private lateinit var _workTagsViewModel: WorkTagsViewModel
 

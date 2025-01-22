@@ -30,7 +30,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import fyi.ioclub.workyras.MainActivity
 import fyi.ioclub.workyras.R
 import fyi.ioclub.workyras.databinding.DialogAddWorkTagBinding
 import fyi.ioclub.workyras.databinding.FragmentWorkTagsBinding
