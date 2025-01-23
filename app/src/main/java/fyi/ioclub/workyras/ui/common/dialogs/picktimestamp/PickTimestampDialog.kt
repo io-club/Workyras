@@ -67,7 +67,7 @@ class PickTimestampDialog(
     private var _timestampCache = timestamp
     private var timestampCache
         get() = _timestampCache
-        set(value) = (if (value == null || value < ref) value else null)
+        set(value) = (if (value == null || value <= ref) value else null)
             .let(::_timestampCache::set)
     private val localDateTimeCache get() = getLocalDateTimeOfTimestamp()
 
@@ -260,11 +260,12 @@ class PickTimestampDialog(
         )
 
         radioGroupTimestampPickerMode.setOnCheckedChangeListener { _, _ ->
-            Log.i("Workyras.Analysis", "on checked change")
-            isCheckedChanging = true
-            autoSetTimestamp()
-            updateTimestampText()
-            updateRefVisibility()
+            runIfNot(isQuietToRadioCheckedChanging) {
+                isCheckedChanging = true
+                autoSetTimestamp()
+                updateTimestampText()
+                updateRefVisibility()
+            }
         }
     }
 
@@ -285,7 +286,6 @@ class PickTimestampDialog(
 
     private fun DialogPickTimestampBinding.updateRadioCheck() =
         runQuietly(::isQuietToRadioCheckedChanging) {
-            radioGroupTimestampPickerMode.setOnCheckedChangeListener(null)
             radioGroupTimestampPickerMode.check(timestampCache.let { (if (it == null || it < 0) radioButtonRelative else radioButtonFixed) }.id)
         }
 
