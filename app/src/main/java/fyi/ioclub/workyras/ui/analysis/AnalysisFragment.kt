@@ -115,6 +115,7 @@ class AnalysisFragment : Fragment() {
                 setNoDataTextColor(colorSecondaryVariant)
             }
 
+            val dataSetLabelFormat = getString(R.string.work_pt_chart_data_set_label_format)
             fun updateChart() {
                 val taggedLists = analysisViewModel.workPointLists ?: return
                 val colorOff = context.theme.resolveAttribute(android.R.attr.colorPrimary)
@@ -126,7 +127,11 @@ class AnalysisFragment : Fragment() {
                     (listInSec zip freqList).map { (time, freq) -> Entry(time, freq) }
                 }
                 val dataSetList = taggedLists.mapIndexed { i, (tag, _) ->
-                    LineDataSet(entryLists[i], tag.name).apply {
+                    val entryList = entryLists[i]
+                    LineDataSet(
+                        entryList,
+                        dataSetLabelFormat.format(tag.name, entryList.size)
+                    ).apply {
                         setDrawValues(false)
                         colorList[i]
                             .also(::setColor)

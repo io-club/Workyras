@@ -45,6 +45,7 @@
     <string name="bottom_nav_analysis_title">Analysis</string>
     <string name="datetime_format">yyyy-MM-dd HH:mm:ss</string>
     <string name="work_pt_chart_description" translatable="false">freq=Σ(1/exp(-d/σ))</string>
+    <string name="work_pt_chart_data_set_label_format" formatted="true">%s (%d)</string>
     <string name="dialog_pick_timestamp_title_start">Pick the start timestamp</string>
     <string name="dialog_pick_timestamp_title_end">Pick the end timestamp</string>
     <string name="edit_text_timestamp_hint">in ms, defaults to CURRENT</string>
