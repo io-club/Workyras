@@ -59,7 +59,8 @@
     <string name="pref_analysis_key_picked_timestamp_end" translatable="false">picked_timestamp_end</string>
     <string name="pref_analysis_key_is_to_show_timestamp_ref" translatable="false">is_to_show_timestamp_ref</string>
     <string name="button_set_sigma_text" translatable="false">σ=</string>
-    <string name="edit_text_sigma_hint"><![CDATA[Enter sigma >= 1]]></string>
+    <string name="dialog_set_sigma_title">Set σ</string>
+    <string name="edit_text_sigma_hint"><![CDATA[Enter σ >= 1]]></string>
     <string name="button_set_seek_bar_sigma_min_description">Set min sigma in seek bar</string>
     <string name="button_set_seek_bar_sigma_max_description">Set max sigma in seek bar</string>
     <string name="pref_analysis_key_sigma_min" translatable="false">sigma_min</string>

@@ -57,7 +57,7 @@ class SetSigmaDialog(
         DialogSetSigmaBinding.inflate(layoutInflater).run {
             initUI()
             AlertDialog.Builder(context)
-                .setTitle(R.string.dialog_pick_timestamp_title_start)
+                .setTitle(R.string.dialog_set_sigma_title)
                 .setView(root)
                 .setPositiveButton(R.string.dialog_positive_button_text) { _, _ ->
                     sigmaMin = sigmaMinCache
