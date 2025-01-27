@@ -24,6 +24,7 @@ import androidx.lifecycle.viewModelScope
 import fyi.ioclub.workyras.data.repository.WorkTagRepository
 import fyi.ioclub.workyras.models.WorkTag
 import fyi.ioclub.workyras.ui.common.worktagsbase.WorkTagsViewModelBase
+import fyi.ioclub.workyras.utils.runQuietly
 import kotlinx.coroutines.launch
 
 class WorkTagsViewModel : WorkTagsViewModelBase() {
@@ -50,20 +51,22 @@ class WorkTagsViewModel : WorkTagsViewModelBase() {
                 val currId = id
                 val prevId = link.prev.idGlobal
                 val nextId = link.next.idGlobal
-                Log.i("Workyras.Common", "Insert $name to db")
+                Log.i("Workyras.Tags", "Insert $name to db")
                 link.run {
-                    Log.i("Workyras.Common", "prev = $prev, next = $next")
+                    Log.i("Workyras.Tags", "prev = $prev, next = $next")
                 }
                 WorkTagRepository.run {
-                    insertWorkTag(
-                        WorkTagRepository.WorkTagInsertionParams.Impl(
-                            idGlobal = currId,
-                            name = name,
-                            nextIdGlobal = nextId,
+                    runQuietly(::isQuiteToCollectFromDb) {
+                        insertWorkTag(
+                            WorkTagRepository.WorkTagInsertionParams.Impl(
+                                idGlobal = currId,
+                                name = name,
+                                nextIdGlobal = nextId,
+                            )
                         )
-                    )
-                    linkWorkTagNext(idGlobal = prevId, nextIdGlobal = currId)
-                    linkWorkTagNext(idGlobal = currId, nextIdGlobal = nextId)
+                        linkWorkTagNext(idGlobal = prevId, nextIdGlobal = currId)
+                        linkWorkTagNext(idGlobal = currId, nextIdGlobal = nextId)
+                    }
                 }
             }
         }

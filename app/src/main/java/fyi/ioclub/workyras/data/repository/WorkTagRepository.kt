@@ -79,8 +79,8 @@ object WorkTagRepository {
 
     suspend fun linkWorkTagNext(idGlobal: ByteArray?, nextIdGlobal: ByteArray?) =
         idGlobal?.let { bytes ->
-            Log.i(
-                "Workyras.Common",
+            Log.d(
+                "Workyras.Tags",
                 "Make ${idGlobal.hexEncoded} next to ${nextIdGlobal?.hexEncoded}"
             )
             dao.updateWorkTagNextIdByIdGlobal(

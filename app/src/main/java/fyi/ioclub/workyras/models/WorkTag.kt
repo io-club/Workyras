@@ -98,10 +98,11 @@ sealed interface WorkTag : DisplayWorkTag {
             override var link
                 get() = _link
                 set(link) = link.run {
-                    when (this@Impl) {
-                        prev, next -> throw IllegalArgumentException("Circled link")
-                        else -> _link = this
-                    }
+                    if (this !== Link.Unbound)
+                        when (this@Impl) {
+                            prev, next -> throw IllegalArgumentException("Circled link")
+                        }
+                    let(::_link::set)
                 }
 
             constructor(

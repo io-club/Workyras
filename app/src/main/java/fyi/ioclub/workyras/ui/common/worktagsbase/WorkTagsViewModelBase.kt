@@ -30,6 +30,8 @@ import fyi.ioclub.workyras.models.DisplayWorkTag
 import fyi.ioclub.workyras.models.WorkTag
 import fyi.ioclub.workyras.ui.common.ToLateInit
 import fyi.ioclub.workyras.utils.delegates.delegateNotNull
+import fyi.ioclub.workyras.utils.runIfNot
+import fyi.ioclub.workyras.utils.runQuietly
 import kotlinx.coroutines.launch
 
 abstract class WorkTagsViewModelBase : ViewModel(), ToLateInit<Lazy<WorkTagsViewModelBase>> {
@@ -55,57 +57,67 @@ abstract class WorkTagsViewModelBase : ViewModel(), ToLateInit<Lazy<WorkTagsView
             // Load the data from the database
             assert(oppositeViewModel.isRecycling != isRecycling)
             WorkTagRepository.flowAllWorkTags.collect { entityList ->
-                Log.i("Workyras.Common", "Collected in raw ${entityList.size}")
-                entityList.forEach { it.run { Log.i("Workyras.Common", "$name: $id -> $nextId") } }
-                val orderedList = mutableListOf<WorkTag.Mutable>()
-                val oppositeOrderedList = mutableListOf<WorkTag.Mutable>()
-                if (entityList.isNotEmpty()) {
-                    val entityMap = entityList.associateBy { it.id }
-                    val firstEntity = entityMap[
-                        (entityMap.keys - entityList.mapNotNull { it.nextId }.toSet())
-                            .apply {
-                                if (size != 1) {
-                                    // When happens while adding, it's not an error
-                                    Log.w(
-                                        "Workyras.Common",
-                                        StringBuilder().appendLine("Wrong number of entity with no prev")
-                                            .apply {
-                                                entityList.forEach { appendLine("${it.id} next to ${it.nextId}") }
-                                            }.toString()
-                                    )
-                                    return@collect
-                                }
-                            }
-                            .first()
-                    ]!!
-                    val first = WorkTag.Mutable.Impl(firstEntity.idGlobal, firstEntity.name)
-                    firstEntity.addToViewModel(first, orderedList, oppositeOrderedList)
-                    WorkTag.Mutable.Root.run {
-                        link = WorkTag.Mutable.Link.Impl(prev = first, next = first)
-                        first.link = WorkTag.Mutable.Link.Impl(prev = this, next = this)
-                    }
-                    var curr = first
-                    var currEntityId = firstEntity.nextId
-                    while (currEntityId != null) {
-                        entityMap[currEntityId]!!.run {
-                            currEntityId = nextId
-                            curr =
-                                WorkTag.Mutable.Impl(idGlobal, name).apply { insertedAfter(curr) }
-                            addToViewModel(curr, orderedList, oppositeOrderedList)
+                runIfNot(isQuiteToCollectFromDb) {
+                    Log.d("Workyras.Tags", "Collected in raw ${entityList.size}")
+                    entityList.forEach {
+                        it.run {
+                            Log.d(
+                                "Workyras.Tags",
+                                "$name: $id -> $nextId"
+                            )
                         }
                     }
-                }
+                    val orderedList = mutableListOf<WorkTag.Mutable>()
+                    val oppositeOrderedList = mutableListOf<WorkTag.Mutable>()
+                    if (entityList.isNotEmpty()) {
+                        val entityMap = entityList.associateBy { it.id }
+                        val firstEntity = entityMap[
+                            (entityMap.keys - entityList.mapNotNull { it.nextId }.toSet())
+                                .apply {
+                                    if (size != 1) {
+                                        // When happens while adding, it's not an error
+                                        Log.w(
+                                            "Workyras.Tags",
+                                            StringBuilder().appendLine("Wrong number of entity with no prev")
+                                                .apply {
+                                                    entityList.forEach { appendLine("${it.id} next to ${it.nextId}") }
+                                                }.toString()
+                                        )
+                                        return@collect
+                                    }
+                                }
+                                .first()
+                        ]!!
+                        val first = WorkTag.Mutable.Impl(firstEntity.idGlobal, firstEntity.name)
+                        firstEntity.addToViewModel(first, orderedList, oppositeOrderedList)
+                        WorkTag.Mutable.Root.run {
+                            link = WorkTag.Mutable.Link.Impl(prev = first, next = first)
+                            first.link = WorkTag.Mutable.Link.Impl(prev = this, next = this)
+                        }
+                        var curr = first
+                        var currEntityId = firstEntity.nextId
+                        while (currEntityId != null) {
+                            entityMap[currEntityId]!!.run {
+                                currEntityId = nextId
+                                curr =
+                                    WorkTag.Mutable.Impl(idGlobal, name)
+                                        .apply { insertedAfter(curr) }
+                                addToViewModel(curr, orderedList, oppositeOrderedList)
+                            }
+                        }
+                    }
 
-                for ((liveData, list) in arrayOf(
-                    mutableWorkTagListLiveData to orderedList,
-                    oppositeViewModel.mutableWorkTagListLiveData to oppositeOrderedList
-                )) liveData.postValue(list)
+                    for ((liveData, list) in arrayOf(
+                        mutableWorkTagListLiveData to orderedList,
+                        oppositeViewModel.mutableWorkTagListLiveData to oppositeOrderedList
+                    )) liveData.postValue(list)
 
-                Log.i("Workyras.Common", "Loaded count ${orderedList.size}")
-                orderedList.forEach {
-                    Log.i("Workyras.Common", "loaded $it")
-                    it.link.run {
-                        Log.i("Workyras.Common", "prev = $prev, next=$next")
+                    Log.d("Workyras.Tags", "Loaded count ${orderedList.size}")
+                    orderedList.forEach {
+                        Log.d("Workyras.Tags", "Loaded $it")
+                        it.link.run {
+                            Log.d("Workyras.Tags", "prev = $prev, next=$next")
+                        }
                     }
                 }
             }
@@ -134,22 +146,24 @@ abstract class WorkTagsViewModelBase : ViewModel(), ToLateInit<Lazy<WorkTagsView
         }
 
     fun moveWorkTag(fromIndex: Int, toIndex: Int) {
-        val fromWorkTag = mutableWorkTagMutableList.removeAt(fromIndex)
-        val toWorkTag = workTagList[toIndex]
-        val currId = fromWorkTag.id
-        val oldPrevId = fromWorkTag.link.prev.idGlobal
-        val oldNextId = fromWorkTag.link.next.idGlobal
-        val newPrevId = toWorkTag.link.prev.idGlobal
-        val newNextId = toWorkTag.id
-        addWorkTag(toIndex, fromWorkTag)
+        Log.d("Workyras.Tags", "Move from $fromIndex to $toIndex")
+        val workTag = mutableWorkTagMutableList.removeAt(fromIndex)
+        val currId = workTag.id
+        fun WorkTag.Mutable.getPair() = link.run { prev to next }.toList().map { it.idGlobal }
+        val (oldPrevId, oldNextId) = workTag.getPair()
+        if (toIndex == mutableWorkTagList.size) workTag.link = WorkTag.Mutable.Link.Unbound
+        addWorkTag(toIndex, workTag)
+        val (newPrevId, newNextId) = workTag.getPair()
         viewModelScope.launch {
             WorkTagRepository.run {
-                // Update relative position info of [this]
-                linkWorkTagNext(idGlobal = oldPrevId, nextIdGlobal = oldNextId)
+                runQuietly(::isQuiteToCollectFromDb) {
+                    // Update relative position info of [this]
+                    linkWorkTagNext(idGlobal = oldPrevId, nextIdGlobal = oldNextId)
 
-                // Insert [currId] between [prevId] and [nextI]
-                linkWorkTagNext(idGlobal = newPrevId, nextIdGlobal = currId)
-                linkWorkTagNext(idGlobal = currId, nextIdGlobal = newNextId)
+                    // Insert [currId] between [newPrevId] and [newNextId]
+                    linkWorkTagNext(idGlobal = newPrevId, nextIdGlobal = currId)
+                    linkWorkTagNext(idGlobal = currId, nextIdGlobal = newNextId)
+                }
             }
         }
     }
@@ -196,32 +210,27 @@ abstract class WorkTagsViewModelBase : ViewModel(), ToLateInit<Lazy<WorkTagsView
                     )?.let { insertedBefore(it) }
         }
         list.add(index, workTag)
+    }
 
-//        // Log entire list
-//        val builder = StringBuilder()
-//            .appendLine("Global Work Tag List:")
-//        val prevList = mutableListOf<String>()
-//        Log.d("WorkTagsBase", "Curr name ${workTag.name}")
-//        var curr = workTag.link.prev
-//        while (curr !== WorkTag.Root) {
-//            prevList.add(curr.name)
-//            Log.d("WorkTagsBase", "Find prev ${curr.name}")
-//            curr = curr.link.prev
-//        }
-//        builder
-//            .append(prevList.reversed().joinToString(separator = "\n"))
-//            .appendLine()
-//        curr = workTag
-//        do {
-//            builder.appendLine(curr.name)
-//            Log.d("WorkTagsBase", "Find next ${curr.name}")
-//            curr = curr.link.next
-//        } while (curr !== WorkTag.Root)
-//        Log.i("WorkTagsBase", builder.toString())
+    /* For debugging. */
+    private fun logEntireList() {
+        // Log entire list
+        val builder = StringBuilder()
+            .appendLine("Global Work Tag List:")
+        var curr = WorkTag.Root.link.next
+        while (curr !== WorkTag.Root) {
+            builder.appendLine("${curr.name},")
+            curr = curr.link.next
+        }
+        Log.d("Workyras.Tags", builder.toString())
     }
 
     companion object {
+
         @JvmStatic
         protected val WorkTag.idGlobal get() = if (this !== WorkTag.Root) id else null
+
+        @JvmStatic
+        protected var isQuiteToCollectFromDb = false
     }
 }
