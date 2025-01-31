@@ -30,7 +30,6 @@ import androidx.activity.viewModels
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.Fragment
@@ -70,8 +69,6 @@ class MainActivity : AppCompatActivity() {
             StringResource,
             Timestamp,
         )) it.tryLateInit { applicationContext }
-
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
         _binding = ActivityMainBinding.inflate(layoutInflater).apply {
             setContentView(root)

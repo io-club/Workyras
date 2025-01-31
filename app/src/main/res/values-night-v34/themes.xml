@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2025 IO Club
+  ~
+  ~ This file is part of Workyras.
+  ~
+  ~ Workyras is free software: you can redistribute it and/or modify
+  ~ it under the terms of the Lesser GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Workyras is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ Lesser GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the Lesser GNU General Public License
+  ~ along with Workyras.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+        <style name="Theme.LPWorkyras" parent="Theme.AppCompat.NoActionBar">
+                <!-- Primary brand color. -->
+                <item name="colorPrimary">@color/pink_m</item>
+                <item name="colorPrimaryVariant">@color/pink_d</item>
+                <item name="colorOnPrimary">@color/black</item>
+                <item name="colorPrimaryContainer">
+                        @android:color/system_surface_container_lowest_dark
+                </item>
+                <item name="android:textColorPrimary">@color/white</item>
+                <!-- Secondary brand color. -->
+                <item name="colorSecondary">@color/blue_m</item>
+                <item name="colorSecondaryVariant">@color/blue_d</item>
+                <item name="colorOnSecondary">@color/black</item>
+                <item name="colorSecondaryContainer">
+                        @android:color/system_surface_container_low_dark
+                </item>
+                <!-- Common. -->
+                <item name="android:statusBarColor">@android:color/transparent</item>
+                <item name="colorSurface">@color/half_transparent_black</item>
+                <item name="colorAccent">@color/pink_l</item>
+                <item name="android:windowLightStatusBar">false</item>
+        </style>
+</resources>

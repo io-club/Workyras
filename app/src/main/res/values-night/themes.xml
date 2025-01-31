@@ -24,16 +24,17 @@
         <item name="colorPrimary">@color/pink_m</item>
         <item name="colorPrimaryVariant">@color/pink_d</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="colorPrimaryContainer">@android:color/system_surface_container_lowest_dark</item>
+        <item name="colorPrimaryContainer">#0C0E13</item>
         <item name="android:textColorPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_m</item>
         <item name="colorSecondaryVariant">@color/blue_d</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="colorSecondaryContainer">@android:color/system_surface_container_low_dark</item>
+        <item name="colorSecondaryContainer">#1A1B20</item>
         <!-- Common. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorSurface">@color/half_transparent_black</item>
         <item name="colorAccent">@color/pink_l</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>
